@@ -17,18 +17,19 @@ ThemeData lightTheme() {
       bodyText1: AppTextTheme.body1,
       caption: AppTextTheme.caption,
     ),
-    buttonTheme: ButtonThemeData(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
-      buttonColor: Colors.yellow,
-      textTheme: ButtonTextTheme.primary,
-      minWidth: 200,
-    ),
+
     elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ButtonStyle(
-        elevation: MaterialStateProperty.all(0),
-        backgroundColor: MaterialStateProperty.all(Colors.yellow),
+      style: ElevatedButton.styleFrom(
+        primary: primaryColor,
+      ),
+    ),
+
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        primary: primaryColor,
       )
     ),
+
     cardTheme: CardTheme(
       elevation: 5,
       color: Colors.white70,
