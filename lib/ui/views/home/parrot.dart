@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:parrot/ui/shared/utils/app_theme.dart';
 import 'package:parrot/ui/shared/utils/light_theme.dart';
 import 'package:parrot/ui/views/auth/auth_screen.dart';
+import 'package:parrot/ui/views/chat/chat_screen.dart';
 import 'package:provider/provider.dart';
 
 class ParrotApp extends StatelessWidget {
@@ -21,8 +23,15 @@ class MaterialAppWithTheme extends StatelessWidget {
     final theme = Provider.of<ThemeChanger>(context).themeData;
     return MaterialApp(
       title: "Parrot",
-      home: AuthScreen(),
-      theme: lightTheme() //theme,
+      theme: lightTheme(),
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (ctx, userSnapshot) {
+          if(userSnapshot.hasData)
+            return ChatScreen();
+          return AuthScreen();
+        } ,
+      )
     );
   }
 }

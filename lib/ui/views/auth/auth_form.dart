@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart' as V;
 
 class AuthForm extends StatefulWidget {
+
+  bool isLoading;
+  final Function submitAuthForm;
+  AuthForm(this.submitAuthForm, this.isLoading);
+
   @override
   _AuthFormState createState() => _AuthFormState();
 }
@@ -32,6 +37,7 @@ class _AuthFormState extends State<AuthForm> {
       FocusScope.of(context).unfocus();
 
       _formKey.currentState.save();
+      widget.submitAuthForm(_userEmail, _userPassword, _username, _isLogin);
       print(_userPassword);
     }
   }
@@ -76,19 +82,21 @@ class _AuthFormState extends State<AuthForm> {
                   onSaved: (value) => _userPassword = value,
                 ),
                 SizedBox(height: 12,),
-
-                ElevatedButton(
-                  child: Text(_isLogin ? "Login": "Signup"),
-                  onPressed: _trySubmit
-                ),
-                TextButton(
-                  child: Text(_isLogin ? "Create New Account.": "I already have an account."),
-                  onPressed: () => setState( ()=> _isLogin = !_isLogin)
-                ),
+                if(widget.isLoading)
+                  CircularProgressIndicator(),
+                if(!widget.isLoading)
+                  ElevatedButton(
+                      child: Text(_isLogin ? "Login": "Signup"),
+                      onPressed: _trySubmit
+                  ),
+                if(!widget.isLoading)
+                  TextButton(
+                      child: Text(_isLogin ? "Create New Account.": "I already have an account."),
+                      onPressed: () => setState( ()=> _isLogin = !_isLogin)
+                  ),
               ],
             ),
           ),
-
         ),
       ),
     );
