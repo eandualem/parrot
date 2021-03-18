@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class WriteMessage extends StatefulWidget {
   @override
   _WriteMessageState createState() => _WriteMessageState();
   final query  = FirebaseFirestore.instance.collection("chat");
+  final user = FirebaseAuth.instance.currentUser;
 }
 
 class _WriteMessageState extends State<WriteMessage> {
@@ -15,7 +17,8 @@ class _WriteMessageState extends State<WriteMessage> {
     FocusScope.of(context).unfocus();
     widget.query.add({
       "text": _enteredMessage,
-      "createdAt": Timestamp.now()
+      "createdAt": Timestamp.now(),
+      "userId": widget.user.uid
     });
     _controller.clear();
   }
