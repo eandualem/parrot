@@ -23,7 +23,7 @@ class MaterialAppWithTheme extends StatelessWidget {
     final theme = Provider.of<ThemeChanger>(context).themeData;
     return MaterialApp(
       title: "Parrot",
-      theme: lightTheme(),
+      theme: lightTheme(), //theme,
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (ctx, userSnapshot) {
