@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class Messages extends StatelessWidget {
 
-  final query  = FirebaseFirestore.instance.collection("chat");
+  final query  = FirebaseFirestore.instance.collection("chat").orderBy("createdAt", descending: true);
   @override
   Widget build(BuildContext context) {
 
@@ -18,6 +18,7 @@ class Messages extends StatelessWidget {
 
         QuerySnapshot querySnapshot = stream.data;
         return ListView.builder(
+          reverse: true,
           itemCount: querySnapshot.size,
           itemBuilder: (ctx, index) => Container(
             padding: EdgeInsets.all(8),

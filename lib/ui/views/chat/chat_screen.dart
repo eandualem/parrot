@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:parrot/ui/shared/utils/app_theme.dart';
 import 'package:parrot/ui/views/chat/messages.dart';
+import 'package:parrot/ui/views/chat/write_message.dart';
 import 'package:provider/provider.dart';
 
 class ChatScreen extends StatelessWidget {
@@ -67,14 +68,9 @@ class ChatScreen extends StatelessWidget {
           children: [
             Expanded(
               child: Messages()),
+            WriteMessage()
         ],
       )),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          query.add({"test": "Working, Wooooooooo Wooooooooo"});
-        },
-      ),
     );
   }
 
